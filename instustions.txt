@@ -1,0 +1,15 @@
+add buttons, count, new game
+
+progress and hearts
+
+also, implement a choosing option, so you dont need to type it in
+
+..add h1 that show that you can either choose number or type it in
+
+add create an alorithm that creates new random sudokus
+
+add an algorithm that solves it
+
+customize it with animation
+
+create 2 modes: light/dark
