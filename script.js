@@ -26,6 +26,7 @@ const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
 const sudokuContainer = document.querySelector(".sudokuContainer");
 
+console.log(sudokuContainer.getBoundingClientRect());
 const addSukoku = function (arr) {
 	let tempArr = [...arr].flat();
 	console.log(tempArr);
@@ -43,15 +44,38 @@ const addSukoku = function (arr) {
 	addSukoku(sudokuEx);
 })();
 
-sudokuContainer.addEventListener("change", (e) => {
-	console.log(+e.target.value);
-	let parent1 = +e.target.parentNode.dataset.number;
-	let parent2 = +e.target.parentNode.parentNode.dataset.number;
-	let value = +e.target.value;
-	console.log(+e.target.value);
-	if (value === sudokuExSolution[parent2 - 1][parent1 - 1]) {
-		e.target.style.backgroundColor = "#59f0aa";
+const removeBackColor = function (elem, state) {
+	elem.style.backgroundColor = "white";
+	if (!state) {
+		elem.style.color = "white";
+		// elem.value = "";
 	} else {
-		e.target.style.backgroundColor = "#ff8585";
 	}
+	elem.style.color = "blueviolet";
+};
+
+sudokuContainer.addEventListener("change", (e) => {
+	const elem = e.target;
+	const parent1 = +elem.parentNode.dataset.number;
+	const parent2 = +elem.parentNode.parentNode.dataset.number;
+	const value = +elem.value;
+	let state;
+
+	if (value === sudokuExSolution[parent2 - 1][parent1 - 1]) {
+		elem.style.backgroundColor = "#59f0aa";
+		elem.style.color = "#FFFFFF";
+		elem.disabled = true;
+		elem.style.transition = "1s all";
+		state = true;
+	} else {
+		elem.style.backgroundColor = "#ff8585";
+		elem.style.color = "#FFFFFF";
+		state = false;
+	}
+	elem.style.outline = "none";
+	setTimeout(() => {
+		removeBackColor(elem, state);
+	}, 2000);
 });
+
+let notes = ['to start new game - click "NEW"...', ""];

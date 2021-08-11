@@ -8,9 +8,19 @@ body {
 	height: 100vh;
 	width: 100vw;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: blueviolet;
+	max-width: 100%;
+	font-family: "Chakra Petch", sans-serif;
+	/* max-height: 100vh; */
+}
+
+#title {
+	color: white;
+	font-size: 5rem;
+	font-family: "Monoton", cursive;
 }
 
 span {
@@ -27,6 +37,7 @@ span > input {
 	line-height: 100%;
 	font-size: 50px;
 	text-align: center;
+	color: blueviolet;
 	border: none;
 	outline: none;
 }
@@ -43,9 +54,11 @@ input::-webkit-inner-spin-button {
 }
 
 .sudokuContainer {
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	width: 540px;
+	margin: 30px;
 }
 
 .part {
@@ -57,46 +70,56 @@ input::-webkit-inner-spin-button {
 
 /* LINES */
 .border {
-	position: fixed;
+	position: absolute;
+	/* position: fixed; */
 	z-index: 10;
 	width: 570px;
 	height: 10px;
-	background-color: black;
+	background-color: rgb(255, 255, 255);
 }
 
 .border.active {
 	transition: 1s all;
 	width: 540px;
+	background-color: rgb(0, 0, 0);
 }
 
 .line-1 {
-	transform: translate(0px, -280px);
+	/* transform: translate(0px, -400px); */
+	top: -15px;
+	left: -15px;
 }
 
 .line-1.active {
-	transform: translate(0px, -90px);
+	transform: translate(15px, 190px);
 }
 
 .line-2 {
-	transform: translate(0px, 280px);
+	transform: rotate(90deg);
+	top: 265px;
+	left: 265px;
 }
 
 .line-2.active {
-	transform: translate(0px, 90px);
+	transform: translate(-175px, 0px) rotate(90deg);
 }
 
 .line-3 {
-	transform: translate(-280px, 0px) rotate(90deg);
+	transform: rotate(90deg);
+	top: 265px;
+	left: -295px;
 }
 
 .line-3.active {
-	transform: translate(-90px, 0px) rotate(90deg);
+	transform: translate(205px, 0px) rotate(90deg);
 }
 
 .line-4 {
-	transform: translate(280px, 0px) rotate(90deg);
+	/* transform: translate(280px, 0px) rotate(90deg); */
+	top: 545px;
+	left: -15px;
 }
 
 .line-4.active {
-	transform: translate(90px, 0px) rotate(90deg);
+	transform: translate(15px, -190px);
 }
