@@ -1,3 +1,5 @@
+// import TxtType from "typescriptEffect.js";
+
 let sudokuEx = [
 	["", "", 4, 9, "", "", "", "", 3],
 	["", 5, "", 7, 3, 4, "", 2, 1],
@@ -82,15 +84,15 @@ sudokuContainer.addEventListener("change", (e) => {
 });
 
 const instructions = [
-	'...to start new game - click "NEW"...',
+	'...to start new game - click "NEW" and good luck...',
 	"...good luck...",
 ];
 
-window.addEventListener("DOMContentLoaded", () => {
-	setTimeout(() => {
-		notes.style.transition = "2s all";
-	}, 3000);
-});
+// window.addEventListener("DOMContentLoaded", () => {
+// 	setTimeout(() => {
+// 		notes.style.transition = "2s all";
+// 	}, 3000);
+// });
 
 const newNote = function (note) {
 	notes.classList.remove("animationNotes");
@@ -103,13 +105,13 @@ const newNote = function (note) {
 };
 
 newGame.addEventListener("click", () => {
-	// notes.classList.remove("animationNotes");
-	// window.requestAnimationFrame(() => {
-	// 	setTimeout(() => {
-	// 		notes.textContent = instructions[0];
-	// 	}, 1000);
-	// 	notes.classList.add("animationNotes");
-	// });
+	if (!notes.classList.contains("animationNotes")) {
+		notes.style.animation = "fadeIn 1s linear forwards";
+		notes.classList.add("animationNotes");
+	} else {
+		notes.style.animation = "fadeOut 1s linear forwards";
+		notes.classList.remove("animationNotes");
+	}
 	if (!activeGameSet) {
 		borders.forEach((el) => {
 			el.classList.add("active");
@@ -118,10 +120,39 @@ newGame.addEventListener("click", () => {
 	}
 });
 
-(function () {
-	addSukoku(sudokuEx);
-	newNote(instructions[0]);
-	setTimeout(() => {
-		newNote(instructions[1]);
-	}, 2100);
-})();
+// (function () {
+// 	addSukoku(sudokuEx);
+// 	// setTimeout(() => {
+// 	// 	newNote(instructions[1]);
+// 	// }, 2100);
+// })();
+let getRandomNumber = function (low, up) {
+	return Math.floor(Math.random() * up) + low;
+};
+
+let getDiagonalMatrix = function () {
+	let matr = [
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+	];
+	let position;
+	for (let i = 1; i <= 9; i++) {
+		position = getRandomNumber(0, 8);
+		console.log("position:", position);
+		console.log("matrx;", matr);
+		while (!matr[position]) {
+			position = getRandomNumber(0, 8);
+		}
+		matr[position] = i;
+	}
+	return [...matr];
+};
+
+console.log(getRandomNumber(0, 8));

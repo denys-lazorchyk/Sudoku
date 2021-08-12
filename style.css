@@ -153,6 +153,8 @@ input::-webkit-inner-spin-button {
 	left: 50%;
 	transform: translate(-50%, -60px);
 	margin: 0;
+	transition: 1s all;
+	/* animation-fill-mode: forwards; */
 	/* border-right: 0.15em solid orange;
 	white-space: nowrap;
 	margin: 0 auto; 
@@ -161,20 +163,24 @@ input::-webkit-inner-spin-button {
 	overflow: hidden;  */
 }
 
-.animationNotes {
-	animation: fade 2s linear;
-}
-
 .hidden {
 	display: none;
 }
 
-@keyframes fade {
-	0%,
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
 	100% {
 		opacity: 1;
 	}
-	50% {
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
 		opacity: 0;
 	}
 }
