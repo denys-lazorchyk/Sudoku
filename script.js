@@ -27,6 +27,8 @@ const spans = document.querySelectorAll("span");
 const sudokuContainer = document.querySelector(".sudokuContainer");
 const notes = document.querySelector(".notes");
 const newGame = document.querySelector(".new-game");
+const borders = document.querySelectorAll(".border");
+let activeGameSet = false;
 
 const addSukoku = function (arr) {
 	let tempArr = [...arr].flat();
@@ -90,19 +92,36 @@ window.addEventListener("DOMContentLoaded", () => {
 	}, 3000);
 });
 
-const newNote = function (note) {};
-
-newGame.addEventListener("click", () => {
+const newNote = function (note) {
 	notes.classList.remove("animationNotes");
 	window.requestAnimationFrame(() => {
 		setTimeout(() => {
-			notes.textContent = instructions[0];
+			notes.textContent = note;
 		}, 1000);
 		notes.classList.add("animationNotes");
 	});
+};
+
+newGame.addEventListener("click", () => {
+	// notes.classList.remove("animationNotes");
+	// window.requestAnimationFrame(() => {
+	// 	setTimeout(() => {
+	// 		notes.textContent = instructions[0];
+	// 	}, 1000);
+	// 	notes.classList.add("animationNotes");
+	// });
+	if (!activeGameSet) {
+		borders.forEach((el) => {
+			el.classList.add("active");
+		});
+		activeGameSet = true;
+	}
 });
 
 (function () {
 	addSukoku(sudokuEx);
-	instructions.forEach();
+	newNote(instructions[0]);
+	setTimeout(() => {
+		newNote(instructions[1]);
+	}, 2100);
 })();

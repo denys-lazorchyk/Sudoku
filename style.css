@@ -88,13 +88,12 @@ input::-webkit-inner-spin-button {
 }
 
 .border.active {
-	transition: 1s all;
+	transition: 1.5s all;
 	width: 540px;
 	background-color: rgb(0, 0, 0);
 }
 
 .line-1 {
-	/* transform: translate(0px, -400px); */
 	top: -15px;
 	left: -15px;
 }
@@ -164,6 +163,10 @@ input::-webkit-inner-spin-button {
 
 .animationNotes {
 	animation: fade 2s linear;
+}
+
+.hidden {
+	display: none;
 }
 
 @keyframes fade {
