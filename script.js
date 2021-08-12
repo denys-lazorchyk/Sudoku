@@ -26,6 +26,7 @@ const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
 const sudokuContainer = document.querySelector(".sudokuContainer");
 const notes = document.querySelector(".notes");
+const newGame = document.querySelector(".new-game");
 
 const addSukoku = function (arr) {
 	let tempArr = [...arr].flat();
@@ -87,6 +88,21 @@ window.addEventListener("DOMContentLoaded", () => {
 	setTimeout(() => {
 		notes.style.transition = "2s all";
 	}, 3000);
-})(function () {
+});
+
+const newNote = function (note) {};
+
+newGame.addEventListener("click", () => {
+	notes.classList.remove("animationNotes");
+	window.requestAnimationFrame(() => {
+		setTimeout(() => {
+			notes.textContent = instructions[0];
+		}, 1000);
+		notes.classList.add("animationNotes");
+	});
+});
+
+(function () {
 	addSukoku(sudokuEx);
+	instructions.forEach();
 })();
