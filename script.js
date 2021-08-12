@@ -25,6 +25,7 @@ let sudokuExSolution = [
 const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
 const sudokuContainer = document.querySelector(".sudokuContainer");
+const notes = document.querySelector(".notes");
 
 const addSukoku = function (arr) {
 	let tempArr = [...arr].flat();
@@ -77,8 +78,15 @@ sudokuContainer.addEventListener("change", (e) => {
 	}, 2000);
 });
 
-let notes = ['...to start new game - click "NEW"...', "...good luck..."];
+const instructions = [
+	'...to start new game - click "NEW"...',
+	"...good luck...",
+];
 
-(function () {
+window.addEventListener("DOMContentLoaded", () => {
+	setTimeout(() => {
+		notes.style.transition = "2s all";
+	}, 3000);
+})(function () {
 	addSukoku(sudokuEx);
 })();

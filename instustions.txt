@@ -1,4 +1,4 @@
-progress and hearts
+hearts
 
 also, implement a choosing option, so you dont need to type it in
 
