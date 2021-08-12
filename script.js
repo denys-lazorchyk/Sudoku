@@ -26,7 +26,6 @@ const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
 const sudokuContainer = document.querySelector(".sudokuContainer");
 
-console.log(sudokuContainer.getBoundingClientRect());
 const addSukoku = function (arr) {
 	let tempArr = [...arr].flat();
 	console.log(tempArr);
@@ -47,9 +46,9 @@ const addSukoku = function (arr) {
 const removeBackColor = function (elem, state) {
 	elem.style.backgroundColor = "white";
 	if (!state) {
-		elem.style.color = "white";
-		// elem.value = "";
-	} else {
+		setTimeout(() => {
+			elem.value = "";
+		}, 100);
 	}
 	elem.style.color = "blueviolet";
 };
@@ -61,21 +60,25 @@ sudokuContainer.addEventListener("change", (e) => {
 	const value = +elem.value;
 	let state;
 
+	elem.style.transition = "0.5s all";
+	elem.style.color = "#FFFFFF";
+
 	if (value === sudokuExSolution[parent2 - 1][parent1 - 1]) {
 		elem.style.backgroundColor = "#59f0aa";
-		elem.style.color = "#FFFFFF";
 		elem.disabled = true;
-		elem.style.transition = "1s all";
 		state = true;
 	} else {
 		elem.style.backgroundColor = "#ff8585";
-		elem.style.color = "#FFFFFF";
+		elem.blur();
 		state = false;
 	}
-	elem.style.outline = "none";
 	setTimeout(() => {
 		removeBackColor(elem, state);
 	}, 2000);
 });
 
-let notes = ['to start new game - click "NEW"...', ""];
+let notes = ['...to start new game - click "NEW"...', "...good luck..."];
+
+(function () {
+	addSukoku(sudokuEx);
+})();

@@ -1,5 +1,3 @@
-add buttons, count, new game
-
 progress and hearts
 
 also, implement a choosing option, so you dont need to type it in
