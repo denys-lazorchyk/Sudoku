@@ -153,15 +153,16 @@ input::-webkit-inner-spin-button {
 	left: 50%;
 	transform: translate(-50%, -60px);
 	margin: 0;
-	border-right: 0.15em solid orange;
-	white-space: nowrap; /* Keeps the content on a single line */
-	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-	letter-spacing: 0.1px; /* Adjust as needed */
+	animation: fade 2s linear;
+	/* border-right: 0.15em solid orange;
+	white-space: nowrap;
+	margin: 0 auto; 
+	letter-spacing: 0.1px; 
 	animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-	overflow: hidden; /* Ensures the content is not revealed until the animation */
+	overflow: hidden;  */
 }
 
-@keyframes typing {
+/* @keyframes typing {
 	from {
 		width: 0;
 	}
@@ -178,7 +179,7 @@ input::-webkit-inner-spin-button {
 	50% {
 		border-color: orange;
 	}
-}
+} */
 
 .statistics {
 	display: flex;
