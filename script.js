@@ -1,23 +1,24 @@
 const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
-const inputs = document.querySelectorAll("span > input");
+const inputs = [...document.querySelectorAll("span > input")];
 const sudokuContainer = document.querySelector(".sudokuContainer");
 const notes = document.querySelectorAll(".notes");
 const menu = document.querySelector(".menu");
 const newGame = document.querySelector(".new-game");
 const borders = document.querySelectorAll(".border");
+const statNums = document.querySelectorAll(".stat-numbers");
 let activeGameSet = false;
-let sudokus, sudokusLength, sudokuSolution;
+let sudokus, sudokusLength, sudokuSolution, currentSudoku;
 
 const addSukoku = function (arr) {
 	let tempArr = [...arr].flat();
-	console.log(tempArr);
-	console.log(spans);
 	tempArr.map((el, i) => {
 		let input = spans[i].querySelector("input");
 		input.value = el;
 		if (!!el) {
 			input.disabled = true;
+		} else {
+			input.disabled = false;
 		}
 	});
 };
@@ -43,23 +44,32 @@ sudokuContainer.addEventListener("change", (e) => {
 	elem.style.color = "#FFFFFF";
 
 	if (value === sudokuSolution[parent2 - 1][parent1 - 1]) {
+		currentSudoku[parent2 - 1][parent1 - 1] = value;
 		elem.style.backgroundColor = "#59f0aa";
 		elem.disabled = true;
 		state = true;
+		localStorage.setItem(
+			"savedSudoku",
+			JSON.stringify({ sudoku: currentSudoku, sudokuSol: sudokuSolution })
+		);
 	} else {
 		elem.style.backgroundColor = "#ff8585";
 		elem.blur();
 		state = false;
 	}
+
+	if (
+		inputs.every((elem) => {
+			elem.checked === true;
+		})
+	) {
+		console.log("hello");
+	}
+
 	setTimeout(() => {
 		removeBackColor(elem, state);
 	}, 2000);
 });
-
-const instructions = [
-	'...to start new game - click "NEW" and good luck...',
-	"...good luck...",
-];
 
 const displayNotes = function () {
 	setTimeout(() => {
@@ -85,16 +95,31 @@ newGame.addEventListener("click", () => {
 		borders.forEach((el) => {
 			el.classList.add("active");
 		});
+
 		activeGameSet = true;
+
+		let savedSudoku = localStorage.getItem("savedSudoku");
+		if (savedSudoku) {
+			// console.log(JSON.parse(savedSudoku));
+			let temp = JSON.parse(savedSudoku);
+			savedSudoku = temp.sudoku;
+			sudokuSolution = temp.sudokuSol;
+		}
+
 		setTimeout(() => {
 			inputs.forEach((inp) => {
 				inp.style.animation = "fadeIn 1s";
 			});
-			showNewSudoku();
+			showNewSudoku(savedSudoku);
 		}, 2000);
 	} else {
+		localStorage.clear();
 		showNewSudoku();
 	}
+});
+
+statNums.forEach((el) => {
+	el.addEventListener("change", (e) => {});
 });
 
 let shuffle = function (array) {
@@ -109,9 +134,7 @@ let getRandomNumber = function (low, up) {
 };
 
 let removeRandomElems = function (matr) {
-	console.log(matr);
 	let copy = JSON.parse(JSON.stringify(matr));
-	console.log(copy);
 
 	copy.forEach((row) => {
 		let deleteNums = getRandomNumber(4, 9);
@@ -141,18 +164,21 @@ const getSudokusFromJson = async function () {
 	});
 };
 
-const showNewSudoku = function () {
+const showNewSudoku = function (savedSudoku = false) {
+	if (savedSudoku) {
+		addSukoku(savedSudoku);
+		currentSudoku = savedSudoku;
+		return;
+	}
 	let randomSudokuNum = getRandomNumber(0, sudokusLength - 1);
 	sudokuSolution = sudokus[randomSudokuNum];
 
 	let sudokuModified = removeRandomElems(sudokuSolution);
+	currentSudoku = sudokuModified;
 	addSukoku(sudokuModified);
 };
 
 (async function () {
-	await getSudokusFromJson().then(() => {
-		// showNewSudoku();
-	});
+	await getSudokusFromJson();
+	displayNotes();
 })();
-
-displayNotes();

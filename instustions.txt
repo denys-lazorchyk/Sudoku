@@ -1,13 +1,16 @@
-hearts
+[no need]  hearts
+[not done and wont be] add create an alorithm that creates new random sudokus
+[not done and wont be]  add an algorithm that solves it
 
 also, implement a choosing option, so you dont need to type it in
 
 ..add h1 that show that you can either choose number or type it in
 
-add create an alorithm that creates new random sudokus
+[done] save result to local storage, then when loaded page, check for result
 
-add an algorithm that solves it
+customize it with animation{
+    when you click new-game they can spin and after it change number
+}
 
-customize it with animation
 
 create 2 modes: light/dark

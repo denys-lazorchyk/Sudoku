@@ -158,13 +158,6 @@ input::-webkit-inner-spin-button {
 	transform: translate(-50%, -60px);
 	margin: 0;
 	transition: 1s all;
-	/* animation-fill-mode: forwards; */
-	/* border-right: 0.15em solid orange;
-	white-space: nowrap;
-	margin: 0 auto; 
-	letter-spacing: 0.1px; 
-	animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-	overflow: hidden;  */
 }
 
 .hidden {
@@ -198,28 +191,19 @@ input::-webkit-inner-spin-button {
 	}
 }
 
+@keyframes fadeIn {
+	100% {
+		opacity: 1;
+	}
+	0% {
+		opacity: 0;
+	}
+}
+
 .moveUp {
 	transition: 1s linear all;
 	transform: translate(0px, -40px);
 }
-/* @keyframes typing {
-	from {
-		width: 0;
-	}
-	to {
-		width: 100%;
-	}
-}
-
-@keyframes blink-caret {
-	from,
-	to {
-		border-color: transparent;
-	}
-	50% {
-		border-color: orange;
-	}
-} */
 
 .statistics {
 	display: flex;
@@ -281,5 +265,4 @@ input::-webkit-inner-spin-button {
 .new-game:hover {
 	color: white;
 	background-color: blueviolet;
-	/* border: 2px solid white; */
 }
