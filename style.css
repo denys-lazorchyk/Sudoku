@@ -12,20 +12,26 @@
 body {
 	height: 100vh;
 	width: 100vw;
+	max-width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: blueviolet;
-	max-width: 100%;
 	font-family: "Chakra Petch", sans-serif;
-	/* max-height: 100vh; */
+	transition: background-color 0.5s ease;
+}
+
+body.victory {
+	background-color: var(--green);
 }
 
 #title {
 	color: white;
 	font-size: 5rem;
 	font-family: "Monoton", cursive;
+	transition: content 0.5s linear;
+	z-index: 5;
 }
 
 span {
@@ -34,6 +40,7 @@ span {
 	height: 50px;
 	margin: 5px;
 	background-color: rgb(255, 255, 255);
+	z-index: 5;
 }
 
 span > input {
@@ -139,9 +146,10 @@ input::-webkit-inner-spin-button {
 /* MENU */
 
 .menu {
+	z-index: 4;
 	width: 570px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	position: relative;
 	margin-top: 50px;
@@ -217,6 +225,7 @@ input::-webkit-inner-spin-button {
 .statistics div p {
 	font-family: "Chakra Petch", sans-serif;
 	display: inline;
+	z-index: 3;
 	/* width: 100px; */
 	/* background-color: none; */
 }
@@ -225,14 +234,8 @@ input::-webkit-inner-spin-button {
 	background: var(--green);
 }
 
-#loses::after {
-	background: var(--red);
-}
-
 .stat-numbers {
 	position: relative;
-
-	/* width: auto; */
 }
 
 .stat-numbers::after {
@@ -264,5 +267,35 @@ input::-webkit-inner-spin-button {
 
 .new-game:hover {
 	color: white;
+	background-color: blueviolet;
+}
+
+/* BACKGROUND */
+
+.backLine {
+	position: fixed;
+	z-index: 2;
+	transition: background-color 0.5s ease;
+}
+
+.backline-1 {
+	width: 150vh;
+	height: 15vh;
+	background-color: var(--green);
+	transform: rotate(-70deg) translate(0px, -100%);
+}
+
+.backline-1.victory {
+	background-color: var(--red);
+}
+
+.backline-2 {
+	width: 200vh;
+	height: 8vw;
+	background-color: var(--red);
+	transform: rotate(40deg) translate(0px, -100%);
+}
+
+.backline-2.victory {
 	background-color: blueviolet;
 }

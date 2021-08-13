@@ -1,3 +1,5 @@
+const body = document.querySelector("body");
+const title = document.querySelector("h1");
 const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
 const inputs = [...document.querySelectorAll("span > input")];
@@ -6,7 +8,8 @@ const notes = document.querySelectorAll(".notes");
 const menu = document.querySelector(".menu");
 const newGame = document.querySelector(".new-game");
 const borders = document.querySelectorAll(".border");
-const statNums = document.querySelectorAll(".stat-numbers");
+const backLines = document.querySelectorAll(".backLine");
+const statNums = document.querySelector(".stat-numbers");
 let activeGameSet = false;
 let sudokus, sudokusLength, sudokuSolution, currentSudoku;
 
@@ -31,6 +34,19 @@ const removeBackColor = function (elem, state) {
 		}, 100);
 	}
 	elem.style.color = "blueviolet";
+};
+
+const toggleVictory = function () {
+	backLines.forEach((el) => {
+		el.classList.toggle("victory");
+	});
+	body.classList.toggle("victory");
+
+	if (title.textContent === "Sudoku") {
+		title.textContent = "You did it!";
+	} else {
+		title.textContent = "Sudoku";
+	}
 };
 
 sudokuContainer.addEventListener("change", (e) => {
@@ -63,7 +79,8 @@ sudokuContainer.addEventListener("change", (e) => {
 			elem.checked === true;
 		})
 	) {
-		console.log("hello");
+		toggleVictory();
+		statNums.textContent = +statNums.textContent + 1;
 	}
 
 	setTimeout(() => {
@@ -113,13 +130,16 @@ newGame.addEventListener("click", () => {
 			showNewSudoku(savedSudoku);
 		}, 2000);
 	} else {
-		localStorage.clear();
+		if (body.classList.contains("victory")) {
+			toggleVictory();
+		}
+		localStorage.removeItem("savedSudoku");
 		showNewSudoku();
 	}
 });
 
-statNums.forEach((el) => {
-	el.addEventListener("change", (e) => {});
+statNums.addEventListener("change", (e) => {
+	localStorage.setItem("completedSudokus", e.target.textContent);
 });
 
 let shuffle = function (array) {
@@ -181,4 +201,9 @@ const showNewSudoku = function (savedSudoku = false) {
 (async function () {
 	await getSudokusFromJson();
 	displayNotes();
+
+	let wins = localStorage.getItem("completedSudokus");
+	if (wins) {
+		statNums.textContent = wins;
+	}
 })();
