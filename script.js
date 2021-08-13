@@ -1,29 +1,3 @@
-// import TxtType from "typescriptEffect.js";
-
-let sudokuEx = [
-	["", "", 4, 9, "", "", "", "", 3],
-	["", 5, "", 7, 3, 4, "", 2, 1],
-	["", "", "", 6, "", "", "", 4, 9],
-	["", 3, 5, "", 9, "", "", 7, 6],
-	["", 9, "", "", "", "", "", 1, ""],
-	[4, 8, "", "", 3, "", 9, 2, ""],
-	[3, 1, "", "", "", 9, "", "", ""],
-	[9, 7, "", 1, 8, 2, "", 6, ""],
-	[2, "", "", "", "", 3, 1, "", ""],
-];
-
-let sudokuExSolution = [
-	[2, 6, 4, 9, 8, 1, 7, 5, 3],
-	[8, 5, 9, 7, 3, 4, 6, 2, 1],
-	[3, 1, 7, 6, 5, 2, 8, 4, 9],
-	[1, 3, 5, 8, 9, 2, 4, 7, 6],
-	[2, 9, 7, 5, 4, 6, 3, 1, 8],
-	[4, 8, 6, 7, 3, 1, 9, 2, 5],
-	[3, 1, 8, 6, 4, 9, 5, 2, 7],
-	[9, 7, 5, 1, 8, 2, 4, 6, 3],
-	[2, 6, 4, 5, 7, 3, 1, 9, 8],
-];
-
 const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
 const sudokuContainer = document.querySelector(".sudokuContainer");
@@ -31,11 +5,12 @@ const notes = document.querySelector(".notes");
 const newGame = document.querySelector(".new-game");
 const borders = document.querySelectorAll(".border");
 let activeGameSet = false;
+let sudokus, sudokusLength, sudokuSolution;
 
 const addSukoku = function (arr) {
 	let tempArr = [...arr].flat();
 	console.log(tempArr);
-
+	console.log(spans);
 	tempArr.map((el, i) => {
 		let input = spans[i].querySelector("input");
 		input.value = el;
@@ -44,10 +19,6 @@ const addSukoku = function (arr) {
 		}
 	});
 };
-
-(function () {
-	addSukoku(sudokuEx);
-})();
 
 const removeBackColor = function (elem, state) {
 	elem.style.backgroundColor = "white";
@@ -69,7 +40,7 @@ sudokuContainer.addEventListener("change", (e) => {
 	elem.style.transition = "0.5s all";
 	elem.style.color = "#FFFFFF";
 
-	if (value === sudokuExSolution[parent2 - 1][parent1 - 1]) {
+	if (value === sudokuSolution[parent2 - 1][parent1 - 1]) {
 		elem.style.backgroundColor = "#59f0aa";
 		elem.disabled = true;
 		state = true;
@@ -88,12 +59,6 @@ const instructions = [
 	"...good luck...",
 ];
 
-// window.addEventListener("DOMContentLoaded", () => {
-// 	setTimeout(() => {
-// 		notes.style.transition = "2s all";
-// 	}, 3000);
-// });
-
 const newNote = function (note) {
 	notes.classList.remove("animationNotes");
 	window.requestAnimationFrame(() => {
@@ -105,54 +70,69 @@ const newNote = function (note) {
 };
 
 newGame.addEventListener("click", () => {
-	if (!notes.classList.contains("animationNotes")) {
-		notes.style.animation = "fadeIn 1s linear forwards";
-		notes.classList.add("animationNotes");
-	} else {
-		notes.style.animation = "fadeOut 1s linear forwards";
-		notes.classList.remove("animationNotes");
-	}
-	if (!activeGameSet) {
-		borders.forEach((el) => {
-			el.classList.add("active");
-		});
-		activeGameSet = true;
-	}
+	// if (!activeGameSet) {
+	// 	borders.forEach((el) => {
+	// 		el.classList.add("active");
+	// 	});
+	// 	activeGameSet = true;
+	// }
+	showNewSudoku();
 });
 
-// (function () {
-// 	addSukoku(sudokuEx);
-// 	// setTimeout(() => {
-// 	// 	newNote(instructions[1]);
-// 	// }, 2100);
-// })();
-let getRandomNumber = function (low, up) {
-	return Math.floor(Math.random() * up) + low;
-};
-
-let getDiagonalMatrix = function () {
-	let matr = [
-		undefined,
-		undefined,
-		undefined,
-		undefined,
-		undefined,
-		undefined,
-		undefined,
-		undefined,
-		undefined,
-	];
-	let position;
-	for (let i = 1; i <= 9; i++) {
-		position = getRandomNumber(0, 8);
-		console.log("position:", position);
-		console.log("matrx;", matr);
-		while (!matr[position]) {
-			position = getRandomNumber(0, 8);
-		}
-		matr[position] = i;
+let shuffle = function (array) {
+	for (let i = array.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
 	}
-	return [...matr];
 };
 
-console.log(getRandomNumber(0, 8));
+let getRandomNumber = function (low, up) {
+	return Math.floor(Math.random() * (up - low)) + low;
+};
+
+let removeRandomElems = function (matr) {
+	console.log(matr);
+	let copy = JSON.parse(JSON.stringify(matr));
+	console.log(copy);
+
+	copy.forEach((row) => {
+		let deleteNums = getRandomNumber(4, 9);
+		let positions = [...Array(9).keys()];
+
+		for (let i = 0; i < 5; i++) {
+			shuffle(positions);
+		}
+
+		for (let i = 0; i < deleteNums; i++) {
+			let position = positions[i];
+			row.splice(position, 1, "");
+		}
+	});
+	return copy;
+};
+
+const getSudokusFromJson = async function () {
+	return new Promise((resolve, reject) => {
+		fetch("sudokus.json")
+			.then((res) => res.json())
+			.then((res) => {
+				sudokus = res;
+				sudokusLength = Object.keys(res).length;
+				resolve("wow");
+			});
+	});
+};
+
+const showNewSudoku = function () {
+	let randomSudokuNum = getRandomNumber(0, sudokusLength - 1);
+	sudokuSolution = sudokus[randomSudokuNum];
+
+	let sudokuModified = removeRandomElems(sudokuSolution);
+	addSukoku(sudokuModified);
+};
+
+(async function () {
+	await getSudokusFromJson().then(() => {
+		showNewSudoku();
+	});
+})();
