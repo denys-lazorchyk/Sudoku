@@ -1,16 +1,16 @@
 [no need]  hearts
 [not done and wont be] add create an alorithm that creates new random sudokus
 [not done and wont be]  add an algorithm that solves it
+[done] save result to local storage, then when loaded page, check for result
+[done] ..add h1 that show that you can either choose number or type it in
+[done] implement buttons, menu
 
 also, implement a choosing option, so you dont need to type it in
-
-..add h1 that show that you can either choose number or type it in
-
-[done] save result to local storage, then when loaded page, check for result
 
 customize it with animation{
     when you click new-game they can spin and after it change number
 }
 
+save win/lose to local storage
 
 create 2 modes: light/dark
