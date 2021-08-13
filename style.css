@@ -48,6 +48,10 @@ span > input {
 	cursor: pointer;
 }
 
+span > input.active {
+	animation: fadeIn 2s linear;
+}
+
 span > input:focus {
 	outline: 3px solid orange;
 }
@@ -167,11 +171,20 @@ input::-webkit-inner-spin-button {
 	display: none;
 }
 
-@keyframes fadeIn {
-	0% {
+.fadeOut {
+	animation: fadeOut 1s linear 2s forwards;
+}
+
+.fadeInOut {
+	animation: fadeInOut 4s linear forwards;
+}
+
+@keyframes fadeInOut {
+	0%,
+	100% {
 		opacity: 0;
 	}
-	100% {
+	50% {
 		opacity: 1;
 	}
 }
@@ -185,6 +198,10 @@ input::-webkit-inner-spin-button {
 	}
 }
 
+.moveUp {
+	transition: 1s linear all;
+	transform: translate(0px, -40px);
+}
 /* @keyframes typing {
 	from {
 		width: 0;

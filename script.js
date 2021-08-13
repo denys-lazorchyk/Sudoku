@@ -1,7 +1,9 @@
 const parts = document.querySelectorAll(".part");
 const spans = document.querySelectorAll("span");
+const inputs = document.querySelectorAll("span > input");
 const sudokuContainer = document.querySelector(".sudokuContainer");
-const notes = document.querySelector(".notes");
+const notes = document.querySelectorAll(".notes");
+const menu = document.querySelector(".menu");
 const newGame = document.querySelector(".new-game");
 const borders = document.querySelectorAll(".border");
 let activeGameSet = false;
@@ -59,24 +61,40 @@ const instructions = [
 	"...good luck...",
 ];
 
-const newNote = function (note) {
-	notes.classList.remove("animationNotes");
-	window.requestAnimationFrame(() => {
+const displayNotes = function () {
+	setTimeout(() => {
+		notes[0].classList.add("hidden");
+		notes[1].classList.remove("hidden");
+		notes[1].classList.add("fadeInOut");
 		setTimeout(() => {
-			notes.textContent = note;
-		}, 1000);
-		notes.classList.add("animationNotes");
-	});
+			notes[1].classList.add("hidden");
+			notes[2].classList.remove("hidden");
+			notes[2].classList.add("fadeInOut");
+			setTimeout(() => {
+				notes.forEach((note) => {
+					note.style.visibility = "hidden";
+				});
+				menu.classList.add("moveUp");
+			}, 4000);
+		}, 4000);
+	}, 3000);
 };
 
 newGame.addEventListener("click", () => {
-	// if (!activeGameSet) {
-	// 	borders.forEach((el) => {
-	// 		el.classList.add("active");
-	// 	});
-	// 	activeGameSet = true;
-	// }
-	showNewSudoku();
+	if (!activeGameSet) {
+		borders.forEach((el) => {
+			el.classList.add("active");
+		});
+		activeGameSet = true;
+		setTimeout(() => {
+			inputs.forEach((inp) => {
+				inp.style.animation = "fadeIn 1s";
+			});
+			showNewSudoku();
+		}, 2000);
+	} else {
+		showNewSudoku();
+	}
 });
 
 let shuffle = function (array) {
@@ -133,6 +151,8 @@ const showNewSudoku = function () {
 
 (async function () {
 	await getSudokusFromJson().then(() => {
-		showNewSudoku();
+		// showNewSudoku();
 	});
 })();
+
+displayNotes();
