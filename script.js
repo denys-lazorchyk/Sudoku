@@ -40,7 +40,7 @@ sudokuContainer.addEventListener("change", (e) => {
 	const value = +elem.value;
 	let state;
 
-	elem.style.transition = "0.5s all";
+	elem.style.transition = "0.45s all";
 	elem.style.color = "#FFFFFF";
 
 	if (value === sudokuSolution[parent2 - 1][parent1 - 1]) {
