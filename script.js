@@ -10,6 +10,7 @@ const newGame = document.querySelector(".new-game");
 const borders = document.querySelectorAll(".border");
 const backLines = document.querySelectorAll(".backLine");
 const statNums = document.querySelector(".stat-numbers");
+const numOption = document.querySelector(".options");
 let activeGameSet = false;
 let sudokus, sudokusLength, sudokuSolution, currentSudoku;
 
@@ -197,6 +198,42 @@ const showNewSudoku = function (savedSudoku = false) {
 	currentSudoku = sudokuModified;
 	addSukoku(sudokuModified);
 };
+
+class addOptions {
+	show(span) {
+		let spanTop = word.getBoundingClientRect().top + word.clientHeight;
+		let spanleft = word.getBoundingClientRect().left;
+
+		// if (window.innerHeight - wordTop - 100 < 20) {
+		// 	wordTop -= showDown.clientHeight + word.clientHeight + 20;
+		// }
+
+		// if (wordleft + 200 > window.innerWidth) {
+		// 	wordleft -= 220;
+		// }
+
+		numOption.style.transform = `translate(${wordleft + 1}px, ${
+			wordTop + 10
+		}px)`;
+
+		numOption.style.display = "flex";
+
+		span.addEventListener("mouseout", (e) => {
+			this.hide();
+			word.removeEventListener("mouseout", () => {});
+		});
+
+		numOptions.addEventListener("mouseover", (e) => {
+			numOption.style.display = "flex";
+			this.hide();
+			word.removeEventListener("mouseout", () => {});
+		});
+	}
+	hide() {
+		// document.querySelector(".showNums").style.display = "none";
+		numOptions.style.display = "none";
+	}
+}
 
 (async function () {
 	await getSudokusFromJson();
