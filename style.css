@@ -17,7 +17,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: blueviolet;
+	background-color: #8a2be2;
 	font-family: "Chakra Petch", sans-serif;
 	transition: background-color 0.5s ease;
 }
@@ -29,6 +29,7 @@ body.victory {
 #title {
 	color: white;
 	font-size: 5rem;
+	font-weight: 500;
 	font-family: "Monoton", cursive;
 	transition: content 0.5s linear;
 	z-index: 5;
@@ -332,4 +333,64 @@ input::-webkit-inner-spin-button {
 	text-align: center;
 	line-height: 33px;
 	border-radius: 20px;
+}
+
+@media (max-width: 750px) {
+	#title {
+		font-size: 15vw;
+	}
+
+	span {
+		width: 9vw;
+		height: 9vw;
+		margin: 0.3vw;
+	}
+
+	span > input {
+		font-size: 8vw;
+	}
+
+	.sudokuContainer {
+		width: 95vw;
+	}
+
+	.part {
+		justify-content: center;
+		width: 95vw;
+	}
+
+	.notes {
+		width: 80%;
+		margin-top: -80px;
+		font-size: 20px;
+	}
+
+	.menu {
+		display: flex;
+		flex-direction: column-reverse;
+		align-items: center;
+		width: 100%;
+		padding-bottom: 0;
+	}
+
+	.border {
+		display: none;
+	}
+
+	div > .new-game {
+		height: auto;
+		/* width: auto; */
+	}
+
+	.new-game {
+		width: 80vw;
+		/* transform: translate(3vw, 0); */
+		margin: 0px;
+		margin-bottom: 5vw;
+		font-size: 20px;
+	}
+
+	p {
+		font-size: 20px;
+	}
 }
