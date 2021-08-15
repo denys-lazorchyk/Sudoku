@@ -135,7 +135,6 @@ input::-webkit-inner-spin-button {
 }
 
 .line-4 {
-	/* transform: translate(280px, 0px) rotate(90deg); */
 	top: 545px;
 	left: -15px;
 }
@@ -227,6 +226,7 @@ input::-webkit-inner-spin-button {
 	font-family: "Chakra Petch", sans-serif;
 	display: inline;
 	z-index: 3;
+	color: white;
 	/* width: 100px; */
 	/* background-color: none; */
 }
@@ -338,6 +338,7 @@ input::-webkit-inner-spin-button {
 @media (max-width: 750px) {
 	#title {
 		font-size: 15vw;
+		margin-bottom: -20px;
 	}
 
 	span {
@@ -361,7 +362,7 @@ input::-webkit-inner-spin-button {
 
 	.notes {
 		width: 80%;
-		margin-top: -80px;
+		margin-top: -70px;
 		font-size: 20px;
 	}
 
@@ -371,20 +372,15 @@ input::-webkit-inner-spin-button {
 		align-items: center;
 		width: 100%;
 		padding-bottom: 0;
-	}
-
-	.border {
-		display: none;
+		margin-bottom: -20px;
 	}
 
 	div > .new-game {
 		height: auto;
-		/* width: auto; */
 	}
 
 	.new-game {
 		width: 80vw;
-		/* transform: translate(3vw, 0); */
 		margin: 0px;
 		margin-bottom: 5vw;
 		font-size: 20px;
@@ -392,5 +388,53 @@ input::-webkit-inner-spin-button {
 
 	p {
 		font-size: 20px;
+	}
+
+	/* LINES */
+	.border {
+		width: 94vw;
+		height: 5px;
+	}
+
+	.border.active {
+		width: 90vw;
+	}
+
+	.line-1 {
+		top: -2vw;
+		left: 0vw;
+	}
+
+	.line-1.active {
+		transform: translate(2.5vw, 30.5vw);
+	}
+
+	.line-2 {
+		transform: rotate(90deg);
+		top: 43vw;
+		left: 45vw;
+	}
+
+	.line-2.active {
+		transform: translate(-28.5vw, 0vw) rotate(90deg);
+	}
+
+	.line-3 {
+		transform: rotate(90deg);
+		top: 43vw;
+		left: -44vw;
+	}
+
+	.line-3.active {
+		transform: translate(32vw, 0px) rotate(90deg);
+	}
+
+	.line-4 {
+		top: 87vw;
+		left: 0vw;
+	}
+
+	.line-4.active {
+		transform: translate(2.5vw, -30vw);
 	}
 }
